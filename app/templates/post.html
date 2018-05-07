@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% import '_macros.html' as macros %}
+
+{% block title %}Flasky - Post{% endblock %}
+
+{% block page_content %}
+    <div class="post col-md-8 col-md-offset-2">
+        <div class="post-title" style="color: #333333;margin-bottom: 30px">
+            <h1>{{ post.title }}</h1>
+        </div>
+        <div class="profile-thumbnail" style="margin-bottom: 50px">
+            <a href="{{ url_for('.user',username=post.author.username) }}">
+                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}"
+                     alt="post">
+            </a>
+            <div class="post-author">
+                <a href="{{ url_for('.user',username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+            </div>
+            <div class="post-date">
+                {{ moment(post.timestamp).fromNow() }}
+            </div>
+        </div>
+
+        <div class="post-body" style="color: black">
+            {{ post.body_html | safe }}
+        </div>
+        {% if not current_user.is_anonymous %}
+        {% if praised %}
+            <div id="click_praise">
+                <button type="button" class="btn btn-danger" style="background-color:#fff;color:#ea6f5a"><a
+                >已赞</a></button>
+            </div>
+        {% else %}
+            <div id="click_praise">
+                <button type="button" class="btn btn-danger"><a
+                >点赞</a></button>
+            </div>
+        {% endif %}
+        {% endif %}
+        <hr>
+        <h4>评论</h4>
+        {% if current_user.is_authenticated %}
+            {{ wtf.quick_form(form) }}
+        {% endif %}
+        {% include '_comments.html' %}
+        {% if pagination %}
+            <div class="pagination">
+                {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=post.id) }}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        window.onload = function () {
+            var praise = document.getElementById('click_praise');
+            praise.onclick = function () {
+                var ajax = new XMLHttpRequest();
+                ajax.open('get', '/praise?post_id={{ post.id }}');
+                ajax.send();
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState == 4 && ajax.status == 200) {
+                        var jsonOBJ = JSON.parse(ajax.responseText)
+                        console.log(jsonOBJ.praised);
+                        if (jsonOBJ.praised) {
+                            var button = praise.getElementsByTagName('button')[0];
+                            button.innerHTML = '已赞';
+                            button.style.backgroundColor = '#fff';
+                            button.style.color = '#ea6f5a';
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as macros %}
+
+{% block page_content %}
+    <div class="col-md-8">
+        {% include '_posts.html' %}
+        {% if pagination %}
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination,'.index') }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        {% include '_recommends.html' %}
+    </div>
+{% endblock %}

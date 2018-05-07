@@ -1,0 +1,132 @@
+a{
+    color: #444;
+}
+a:hover,a:link{
+    text-decoration: none;
+}
+.profile-thumbnail {
+    font-size: 13px;
+}
+ul.posts li.post {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+ul.posts {
+    list-style-type: none;
+    margin: 40px 0 0 -40px;
+}
+ul.posts li.post:hover {
+    background-color: #eee;
+}
+li.post{
+    border-radius: 8px;
+}
+div.post-date {
+    float: right;
+}
+div.post-author {
+    display: inline-block;
+    font-weight: bold;
+}
+div.post-title>h1 {
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+}
+div.post-body{
+    margin-bottom: 80px;
+}
+div.pagination {
+    width: 100%;
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+}
+.footer-img{
+    border:none;
+    background-color: transparent;
+}
+li.write_post>a ul.navbar-right>li>a a.nav-left{
+    color: #ffffff;
+    margin: 10px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 3px;
+    font-weight: 900;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #333333;
+    background-color: indianred;
+}
+ul.comments {
+    list-style-type: none;
+    padding: 0;
+    margin: 16px 0px 0px 0px;
+}
+ul.comments li.comment {
+    padding: 20px 5px 5px 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+ul.comments li.comment:nth-child(1) {
+    border-top: 1px solid #e0e0e0;
+}
+ul.comments li.comment:hover {
+    background-color: #f0f0f0;
+}
+div.comment-date {
+    float: right;
+}
+div.comment-author {
+    font-weight: bold;
+}
+div.comment-thumbnail {
+    position: absolute;
+}
+div.comment-content {
+    margin-left: 48px;
+    min-height: 48px;
+}
+div.comment-form {
+    margin: 16px 0px 16px 32px;
+}
+div.comment>span.btn-default {
+    border: none;
+}
+ul.recommends{
+    list-style: none;
+    padding-left: 0;
+}
+li.recommend:hover{
+    background-color: #ddd;
+}
+li.recommend{
+    padding:10px 0 10px 8px;
+    border-radius: 5px;
+}
+div.recommend-author span.btn-default, div.recommend-author span.btn-default{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+}
+span.recommend-foot-1{
+    left: 60px;
+    top: 35px;
+}
+span.recommend-foot-2{
+    left: 130px;
+    top: 35px;
+}
+div.recommend-name{
+    position: absolute;
+    left: 67px;
+    top: 10px;
+}
+.user-details-email{
+    border: none;
+    background-color: transparent;
+}
+#follow-tag{
+    float: right;
+}

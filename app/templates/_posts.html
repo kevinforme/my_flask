@@ -1,0 +1,47 @@
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="profile-thumbnail">
+            <a href="{{ url_for('.user',username=post.author.username) }}">
+                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}"
+                     alt="post">
+            </a>
+            <div class="post-author">
+                <a href="{{ url_for('.user',username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+            </div>
+            <div class="post-date">
+                {{ moment(post.timestamp).fromNow() }}
+            </div>
+        </div>
+        <a href="{{ url_for('.post',id=post.id) }}">
+            <div class="post-title" style="color: #333333">
+                <h4>{{ post.title }}</h4>
+            </div>
+            <div class="post-outline" style="color: black">
+                {{ post.outline }}
+            </div>
+        </a>
+        <div class="post-footer">
+
+                <span class="btn btn-default btn-sm footer-img">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{{ post.praise }}
+                </span>
+            <span class="btn btn-default btn-sm footer-img">
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> {{ post.comments.filter_by(disabled=False).count() }}
+                </span>
+
+            {% if current_user==post.author %}
+            <a class="btn btn-default btn-sm footer-img" href="{{ url_for('.edit',id=post.id) }}">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+            </a>
+            {% elif current_user.is_administrator() %}
+            <a class="btn btn-default btn-sm footer-img" href="{{ url_for('.edit',id=post.id) }}">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑(管理员)
+            </a>
+            {% endif %}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
