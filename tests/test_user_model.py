@@ -22,7 +22,7 @@ class UserModelTestCase(unittest.TestCase):
         self.assertFalse(u.can(Permission.COMMENT))
 
     def test_administrator(self):
-        u=User(email='17730804096@189.cn',password='password')
+        u=User(email='kevinforlj@163.com',password='password')
         self.assertTrue(u.can(Permission.WRITE_ARTICLES))
         self.assertTrue(u.can(Permission.FOLLOW))
         self.assertTrue(u.can(Permission.COMMENT))

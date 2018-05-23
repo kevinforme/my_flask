@@ -4,6 +4,7 @@ import time
 import unittest
 from selenium import webdriver
 from app import create_app, db
+from app.models import Role, User
 
 
 class SeleniumTestCase(unittest.TestCase):
@@ -33,9 +34,19 @@ class SeleniumTestCase(unittest.TestCase):
 
             # create the database and populate with some fake data
             db.create_all()
+            Role.insert_roles()
+
+            # add an administrator user
+            admin_role = Role.query.filter_by(name='Administrator').first()
+            admin = User(email='john@example.com',
+                         username='john', password='cat',
+                         role=admin_role, confirmed=True)
+            db.session.add(admin)
+            db.session.commit()
 
             # start the Flask server in a thread
-            cls.server_thread = threading.Thread(target=cls.app.run, kwargs={'debug': False})
+            cls.server_thread = threading.Thread(target=cls.app.run,
+                                                 kwargs={'debug': False})
             cls.server_thread.start()
 
             # give the server a second to ensure it is up
@@ -63,7 +74,9 @@ class SeleniumTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_home_page(self):
+    def test_admin_home_page(self):
         # navigate to home page
         self.client.get('http://localhost:5000/')
-        self.assertTrue(re.search('hello', self.client.page_source))
+        self.assertTrue(re.search('首页',
+                                  self.client.page_source))
+
