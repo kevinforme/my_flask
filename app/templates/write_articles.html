@@ -2,7 +2,7 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block page_content %}
-    <h2>hi {% if current_user %}{{ current_user.username }}{% else %}stranger{% endif %}
+    <h2>编辑文章
     </h2>
     <div>
         {% if current_user.can(Permission.WRITE_ARTICLES) %}
