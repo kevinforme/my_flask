@@ -3,12 +3,50 @@
 
 {% block page_content %}
     <div class="col-md-8">
-        {% include '_posts.html' %}
-        {% if pagination %}
-        <div class="pagination">
-            {{ macros.pagination_widget(pagination,'.index') }}
+        <div class="recommend-collection">
+            <a class="collection" target="_blank"
+               href="#">
+                <img src="//upload.jianshu.io/collections/images/261938/man-hands-reading-boy-large.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                     alt="64"/>
+                <div class="name">社会热点</div>
+            </a> <a class="collection" target="_blank"
+                    href="#">
+            <img src="//upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">故事</div>
+        </a> <a class="collection" target="_blank"
+                href="#">
+            <img src="//upload.jianshu.io/collections/images/494271/51164a1egd7b1a4a7c491_690.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">人文社科</div>
+        </a> <a class="collection" target="_blank"
+                href="#">
+            <img src="//upload.jianshu.io/collections/images/75/22.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">历史</div>
+        </a> <a class="collection" target="_blank" href="#">
+            <img src="//upload.jianshu.io/collections/images/21/20120316041115481.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">简书电影</div>
+        </a> <a class="collection" target="_blank" href="#">
+            <img src="//upload.jianshu.io/collections/images/4/sy_20091020135145113016.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">读书</div>
+        </a> <a class="collection" target="_blank" href="#">
+            <img src="//upload.jianshu.io/collections/images/13/%E5%95%8A.png?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                 alt="64"/>
+            <div class="name">旅行·在路上</div>
+        </a>
         </div>
-        {% endif %}
+        <hr>
+        <div>
+            {% include '_posts.html' %}
+            {% if pagination %}
+                <div class="pagination">
+                    {{ macros.pagination_widget(pagination,'.index') }}
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="col-md-4">
         {% include '_recommends.html' %}

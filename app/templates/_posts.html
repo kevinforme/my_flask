@@ -15,11 +15,11 @@
                 {{ moment(post.timestamp).fromNow() }}
             </div>
         </div>
-        <a href="{{ url_for('.post',id=post.id) }}">
-            <div class="post-title" style="color: #333333">
-                <h4>{{ post.title }}</h4>
+        <a href="{{ url_for('.post',id=post.id) }}" target="_blank">
+            <div class="post-title">
+                {{ post.title }}
             </div>
-            <div class="post-outline" style="color: black">
+            <div class="post-outline">
                 {{ post.outline }}
             </div>
         </a>
