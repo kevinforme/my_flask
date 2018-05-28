@@ -1,9 +1,10 @@
+from flask_login import current_user
 from flask_pagedown.fields import PageDownField
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, BooleanField, SelectField
 from wtforms.validators import Length, DataRequired, Email
 
-from app.models import Role, User
+from app.models import Role, User, PostKind
 
 
 # 用户编辑资料的表单
@@ -37,9 +38,15 @@ class EditProfileAdminForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('标题', validators=[DataRequired(), Length(1, 64)])
+    kind = SelectField('类别', coerce=str)
     outline = StringField('概要', validators=[DataRequired(), Length(50, 180)])
     body = PageDownField('写下你想说的话', validators=[DataRequired(), Length(min=20)])
     submit = SubmitField('提交')
+
+    def __init__(self, user, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.kind.choices = [(kind.name, kind.name) for kind in PostKind.query.order_by(PostKind.id).all()]
+        self.user = user
 
 
 class CommentForm(FlaskForm):

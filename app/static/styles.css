@@ -188,3 +188,7 @@ div.recommend-name{
 .main-top .title{
 padding: 10px 0 0 100px;
 }
+.font-red{
+    color: #ea6f5a !important;
+    font-weight: 800;
+}

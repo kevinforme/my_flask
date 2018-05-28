@@ -49,12 +49,15 @@ def posts():
     k = request.args.get('kind')
     if k is None:
         abort(404)
-    kind=PostKind.query.filter_by(name=k).first()
+    kind = PostKind.query.filter_by(name=k).first()
     if kind is None:
         abort(404)
-    posts = Post.query.filter_by(kind=kind).all()
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.filter_by(kind=kind).order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
+    posts = pagination.items
     recommends = User.query.filter_by(recommend=True)
-    return render_template('kind_posts.html', posts=posts, recommends=recommends, kind=kind)
+    return render_template('kind_posts.html', posts=posts, recommends=recommends, kind=kind,pagination=pagination)
 
 
 # 上下文处理器，将变量暴露给所有模板
@@ -116,10 +119,11 @@ def edit_profile_admin(id):
 @main.route('/write_articles', methods=['GET', 'POST'])
 @login_required
 def write_articles():
-    form = PostForm()
+    form = PostForm(user=current_user)
     if current_user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
+        kind = PostKind.query.filter_by(name=form.kind.data).first()
         post = Post(title=form.title.data, outline=form.outline.data, body=form.body.data,
-                    author=current_user._get_current_object())
+                    author=current_user._get_current_object(), kind=kind)
         db.session.add(post)
         return redirect(url_for('.index'))
     return render_template('write_articles.html', form=form)
