@@ -5,38 +5,51 @@
     <div class="col-md-8">
         <div class="recommend-collection">
             <a class="collection" target="_blank"
-               href="#">
+               href="{{ url_for('main.posts',kind='社会热点') }}">
                 <img src="//upload.jianshu.io/collections/images/261938/man-hands-reading-boy-large.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                      alt="64"/>
                 <div class="name">社会热点</div>
             </a> <a class="collection" target="_blank"
-                    href="#">
+                    href="{{ url_for('main.posts',kind='故事') }}">
             <img src="//upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
             <div class="name">故事</div>
         </a> <a class="collection" target="_blank"
-                href="#">
+                href="{{ url_for('main.posts',kind='人文社科') }}">
             <img src="//upload.jianshu.io/collections/images/494271/51164a1egd7b1a4a7c491_690.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
             <div class="name">人文社科</div>
         </a> <a class="collection" target="_blank"
-                href="#">
+                href="{{ url_for('main.posts',kind='历史') }}">
             <img src="//upload.jianshu.io/collections/images/75/22.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
             <div class="name">历史</div>
-        </a> <a class="collection" target="_blank" href="#">
+        </a> <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='影视') }}">
             <img src="//upload.jianshu.io/collections/images/21/20120316041115481.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
-            <div class="name">简书电影</div>
-        </a> <a class="collection" target="_blank" href="#">
+            <div class="name">影视</div>
+        </a> <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='读书') }}">
             <img src="//upload.jianshu.io/collections/images/4/sy_20091020135145113016.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
             <div class="name">读书</div>
-        </a> <a class="collection" target="_blank" href="#">
+            <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='艺术') }}">
+                <img src="//upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                     alt="64"/>
+                <div class="name">艺术</div>
+            </a> <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='旅行·在路上') }}">
             <img src="//upload.jianshu.io/collections/images/13/%E5%95%8A.png?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
                  alt="64"/>
             <div class="name">旅行·在路上</div>
-        </a>
+            <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='@IT·互联网') }}">
+                <img src="//upload.jianshu.io/collections/images/14/6249340_194140034135_2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
+                     alt="64"/>
+                <div class="name">@IT·互联网</div>
+            </a>
+            <a class="collection" target="_blank" href="{{ url_for('main.posts',kind='其他') }}">
+                <img src="//upload.jianshu.io/collections/images/11/20100120161805563.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                     alt="64"/>
+                <div class="name">其他</div>
+            </a>
         </div>
         <hr>
         <div>

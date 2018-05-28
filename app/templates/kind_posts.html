@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as macros %}
+
+{% block page_content %}
+    <div class="col-md-8">
+        <div class="main-top">
+            <a class="avatar-collection">
+                {% if kind.name=='@IT·互联网' %}
+                    <img src="//upload.jianshu.io/collections/images/14/6249340_194140034135_2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
+                         alt="240"/>
+                {% elif kind.name=='社会热点' %}
+                    <img src="//upload.jianshu.io/collections/images/261938/man-hands-reading-boy-large.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='故事' %}
+                    <img src="//upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='人文社科' %}
+                    <img src="//upload.jianshu.io/collections/images/494271/51164a1egd7b1a4a7c491_690.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='历史' %}
+                    <img src="//upload.jianshu.io/collections/images/75/22.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='影视' %}
+                    <img src="//upload.jianshu.io/collections/images/21/20120316041115481.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='读书' %}
+                    <img src="//upload.jianshu.io/collections/images/4/sy_20091020135145113016.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='艺术' %}
+                    <img src="//upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
+                         alt="240"/>
+                {% elif kind.name=='旅行·在路上' %}
+                    <img src="//upload.jianshu.io/collections/images/13/%E5%95%8A.png?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='@IT·互联网' %}
+                    <img src="//upload.jianshu.io/collections/images/14/6249340_194140034135_2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% elif kind.name=='其他' %}
+                    <img src="//upload.jianshu.io/collections/images/11/20100120161805563.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                         alt="240"/>
+                {% endif %}
+            </a>
+            <div class="follow-button" props-data-following="false" props-data-collection-id="14"></div>
+
+            <div class="title">
+                <a class="name">{{ kind.name }}</a>
+            </div>
+            <div class="info">
+                共收录{{ kind.posts.count() }}篇文章
+            </div>
+        </div>
+        <hr>
+        <div>
+            {% include '_posts.html' %}
+            {% if pagination %}
+                <div class="pagination">
+                    {{ macros.pagination_widget(pagination,'.index') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        {% include '_recommends.html' %}
+    </div>
+{% endblock %}

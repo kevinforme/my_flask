@@ -272,9 +272,27 @@ class Role(db.Model):
         db.session.commit()
 
 
+class PostKind(db.Model):
+    __tablename__ = 'postkinds'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+    posts = db.relationship('Post', backref='kind', lazy='dynamic')
+
+    @staticmethod
+    def insert_post_kinds():
+        kind = ['社会热点', '故事', '人文社科', '历史', '影视', '读书', '艺术', '旅行·在路上', '@IT·互联网', '其他']
+        for k in kind:
+            if PostKind.query.filter_by(name=k).first() is None:
+                pk = PostKind(name=k)
+                db.session.add(pk)
+        db.session.commit()
+
+
 # 文章模型
 class Post(db.Model):
     __tablename__ = 'posts'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), index=True)
     outline = db.Column(db.String(180), index=True)
@@ -291,6 +309,8 @@ class Post(db.Model):
 
     praised_by_users = db.relationship('User', secondary=registrations,
                                        backref=db.backref('praised_posts', lazy='dynamic'), lazy='dynamic')
+
+    kind_id = db.Column(db.Integer, db.ForeignKey('postkinds.id'))
 
     def __init__(self, **kwargs):
         super(Post, self).__init__(**kwargs)

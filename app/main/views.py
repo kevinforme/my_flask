@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.decorators import admin_required, permission_required
 from app.main.forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
-from app.models import Permission, User, Role, Post, Comment
+from app.models import Permission, User, Role, Post, Comment, PostKind
 from . import main
 from flask import current_app, abort, request, render_template, flash, redirect, url_for, jsonify
 
@@ -42,6 +42,19 @@ def followed_posts():
     posts = pagination.items
     recommends = User.query.filter_by(recommend=True)
     return render_template('index.html', posts=posts, pagination=pagination, recommends=recommends)
+
+
+@main.route('/posts')
+def posts():
+    k = request.args.get('kind')
+    if k is None:
+        abort(404)
+    kind=PostKind.query.filter_by(name=k).first()
+    if kind is None:
+        abort(404)
+    posts = Post.query.filter_by(kind=kind).all()
+    recommends = User.query.filter_by(recommend=True)
+    return render_template('kind_posts.html', posts=posts, recommends=recommends, kind=kind)
 
 
 # 上下文处理器，将变量暴露给所有模板
