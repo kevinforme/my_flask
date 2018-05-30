@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cache import Cache
 from flask_pagedown import PageDown
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -13,6 +14,7 @@ bootstrap = Bootstrap()
 moment = Moment()
 mail = Mail()
 pagedown = PageDown()
+cache = Cache()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -37,6 +39,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
     pagedown.init_app(app)
+    cache.init_app(app)
 
     # 注册蓝本
     from .main import main as main_blueprint

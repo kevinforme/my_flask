@@ -6,6 +6,7 @@ coverage==4.5.1
 dominate==2.3.1
 Flask==1.0.1
 Flask-Bootstrap==3.3.7.1
+Flask-Cache==0.13.1
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
@@ -23,6 +24,7 @@ MarkupSafe==1.0
 PyMySQL==0.8.0
 python-dateutil==2.7.2
 python-editor==1.0.3
+redis==2.10.6
 selenium==3.11.0
 six==1.11.0
 SQLAlchemy==1.2.6
