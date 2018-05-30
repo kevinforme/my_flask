@@ -2,6 +2,7 @@ from flask_login import login_required, current_user
 
 from app import db
 from app.decorators import admin_required, permission_required
+from app.main import cached
 from app.main.forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
 from app.models import Permission, User, Role, Post, Comment, PostKind
 from . import main
@@ -22,7 +23,9 @@ def server_shutdown():
 
 # 主页路由
 @main.route('/')
+@cached()
 def index():
+    print(1111111111111)
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False
