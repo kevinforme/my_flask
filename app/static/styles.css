@@ -192,3 +192,13 @@ padding: 10px 0 0 100px;
     color: #ea6f5a !important;
     font-weight: 800;
 }
+.pic-7{
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+}
+footer{
+    text-align: center;
+    margin: 20px 0 20px 0;
+}

@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 
-from app import db, cache
+from app import db
 from app.decorators import admin_required, permission_required
 from app.main.forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
 from app.models import Permission, User, Role, Post, Comment, PostKind
@@ -23,7 +23,6 @@ def server_shutdown():
 # 主页路由
 @main.route('/')
 def index():
-    print(1111111111111111111111)
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False
@@ -36,7 +35,6 @@ def index():
 # 仅查看关注者文章的路由
 @main.route('/followed_posts')
 @login_required
-@cache.cached(timeout=30, key_prefix='index', unless=None)
 def followed_posts():
     page = request.args.get('page', 1, type=int)
     pagination = current_user.followed_posts.order_by(Post.timestamp.desc()).paginate(
@@ -47,7 +45,6 @@ def followed_posts():
 
 
 @main.route('/posts')
-@cache.cached(timeout=30, key_prefix='index', unless=None)
 def posts():
     k = request.args.get('kind')
     if k is None:
@@ -134,7 +131,6 @@ def write_articles():
 
 # 显示文章详情的路由
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
-@cache.cached(timeout=60*5, key_prefix='index', unless=None)
 def post(id):
     post = Post.query.get_or_404(id)
     form = CommentForm()
