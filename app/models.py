@@ -1,4 +1,5 @@
 import hashlib
+import os
 from datetime import datetime
 
 import bleach
@@ -8,7 +9,7 @@ from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request
+from flask import current_app, request, url_for
 
 
 # flask_login需要的用户加载函数
@@ -71,6 +72,9 @@ class User(UserMixin, db.Model):
 
     # 用户文章得到赞的数量
     likes = db.Column(db.Integer, default=0)
+
+    #
+    avatar = db.relationship('Avatar', backref='user', lazy='dynamic')
 
     # 给予用户默认角色
     def __init__(self, **kwargs):
@@ -169,6 +173,9 @@ class User(UserMixin, db.Model):
 
     # 根据邮箱生成头像查询字符串
     def gravatar(self, size=50, default='monsterid', rating='g'):
+        if self.avatar.first() is not None:
+            print(self.avatar)
+            return url_for('static', filename='uploads/'+self.avatar.first().filename)
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
         else:
@@ -221,6 +228,14 @@ class User(UserMixin, db.Model):
     @property
     def followed_posts(self):
         return Post.query.join(Follow, Follow.followed_id == Post.author_id).filter(Follow.follower_id == self.id)
+
+
+class Avatar(db.Model):
+    __tablename__ = 'avatars'
+
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(150))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 # 提供给flask-login的未登录用户类

@@ -1,9 +1,14 @@
+import os
+
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
+from PIL import Image
+from werkzeug.utils import secure_filename
 
+import flasky
 from app import db
 from app.email import send_email
-from app.models import User
+from app.models import User, Avatar
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, \
     ChangeEmailForm
 from . import auth
@@ -168,3 +173,18 @@ def change_email(token):
     else:
         flash('Invalid request.')
     return redirect(url_for('main.index'))
+
+
+@auth.route('change_avatar', methods=['POST'])
+@login_required
+def change_avatar():
+    if request.method == 'POST' and 'file' in request.files:
+        size = (100, 100)
+        file = request.files['file']
+        im = Image.open(file)
+        im.thumbnail(size)
+        filename = secure_filename(file.filename)
+        avatar = Avatar(filename=filename, user_id=current_user.id)
+        db.session.add(avatar)
+        im.save(os.path.join(flasky.app.config['UPLOAD_FOLDER'], filename))
+        return redirect(url_for('main.index'))

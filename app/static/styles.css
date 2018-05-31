@@ -121,11 +121,11 @@ div.recommend-author span.btn-default, div.recommend-author span.btn-default{
 }
 span.recommend-foot-1{
     left: 60px;
-    top: 35px;
+    top: 30px;
 }
 span.recommend-foot-2{
     left: 130px;
-    top: 35px;
+    top: 30px;
 }
 div.recommend-name{
     position: absolute;
@@ -191,6 +191,7 @@ padding: 10px 0 0 100px;
 .font-red{
     color: #ea6f5a !important;
     font-weight: 800;
+    height: 50px;
 }
 .pic-7{
     width: 100%;
@@ -201,4 +202,20 @@ padding: 10px 0 0 100px;
 footer{
     text-align: center;
     margin: 20px 0 20px 0;
+}
+.my-avatar{
+    padding: 5px !important;
+}
+.my-avatar img{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+.my-avatar:hover{
+    background-color: transparent !important;
+}
+.detail-avatar{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
 }

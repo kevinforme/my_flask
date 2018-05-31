@@ -3,7 +3,7 @@
     {% for recommend in recommends %}
         <li style="position: relative" class="recommend">
             <div class="profile-thumbnail">
-                <a href="{{ url_for('.user',username=recommend.username) }}">
+                <a class="my-avatar" href="{{ url_for('.user',username=recommend.username) }}">
                     <img class="img-rounded profile-thumbnail" src="{{ recommend.gravatar(size=50) }}"
                          alt="gravatar">
                 </a>

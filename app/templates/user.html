@@ -29,8 +29,14 @@
         </span>
             {% if user.username %}
                 <p>
-                    <img src="{{ user.gravatar() }}">
+                    <img class="detail-avatar" src="{{ user.gravatar() }}">
                     <span style="font-size: 25px;font-weight: bold">{{ user.username }}</span>
+                    {% if user.id==current_user.id %}
+                        <form action="{{ url_for('auth.change_avatar') }}" method='post' enctype=multipart/form-data>
+                            <input type=file name=photo><br/>
+                            <input type=submit value='上传'>
+                        </form>
+                    {% endif %}
                 </p>
 
             {% endif %}
@@ -48,9 +54,9 @@
                     href="mailto:{{ user.email }}"> {{ user.email }}</a>
             </span>
             {% if current_user.id==user.id or current_user.is_administrator() %}
-            <a class="btn btn-default btn-sm footer-img" href="{{ url_for('auth.change_email_request') }}">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 修改邮箱
-            </a>
+                <a class="btn btn-default btn-sm footer-img" href="{{ url_for('auth.change_email_request') }}">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 修改邮箱
+                </a>
             {% endif %}
         </p>
         <p>

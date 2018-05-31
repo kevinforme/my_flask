@@ -13,6 +13,7 @@ Flask-Migrate==2.1.1
 Flask-Moment==0.6.0
 Flask-PageDown==0.2.2
 Flask-SQLAlchemy==2.3.2
+Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
 ForgeryPy==0.1
 html5lib==1.0.1
@@ -21,6 +22,7 @@ Jinja2==2.10
 Mako==1.0.7
 Markdown==2.6.11
 MarkupSafe==1.0
+Pillow==5.1.0
 PyMySQL==0.8.0
 python-dateutil==2.7.2
 python-editor==1.0.3

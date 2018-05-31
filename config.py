@@ -1,5 +1,7 @@
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'easy to guess string ? no,no,no.'
@@ -21,11 +23,16 @@ class Config:
     FLASKY_FOLLOWERS_PER_PAGE = 12
     FLASKY_COMMENTS_PER_PAGE = 10
 
+    # Cache configuration
     CACHE_TYPE = 'redis'
     CACHE_REDIS_HOST = '127.0.0.1'
     CACHE_REDIS_PORT = 6379
     CACHE_REDIS_PASSWORD = ''
     CACHE_REDIS_DB = ''
+
+    UPLOAD_FOLDER = basedir+'/app/static/uploads'
+    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
     @staticmethod
     def init_app():
