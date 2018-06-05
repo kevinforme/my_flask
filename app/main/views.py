@@ -1,14 +1,10 @@
-import os
-
-from PIL import Image
 from flask_login import login_required, current_user
-from werkzeug.utils import secure_filename
 
-from app import db
+from app import db, cache
 from app.decorators import admin_required, permission_required
+from app.email import send_email
 from app.main.forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
 from app.models import Permission, User, Role, Post, Comment, PostKind
-import flasky
 from . import main
 from flask import current_app, abort, request, render_template, flash, redirect, url_for, jsonify
 
@@ -28,6 +24,7 @@ def server_shutdown():
 # 主页路由
 @main.route('/')
 def index():
+    print(request.path)
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False
@@ -146,6 +143,7 @@ def post(id):
                           post=post,
                           author=current_user._get_current_object())
         db.session.add(comment)
+        send_email(post.author.email, 'new comment', 'auth/email/comment',user=post.author,post=post)
         flash('你的评论已提交')
         return redirect(url_for('.post', id=post.id))
     page = request.args.get('page', 1, type=int)

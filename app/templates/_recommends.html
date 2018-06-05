@@ -1,5 +1,6 @@
 <p>推荐作者</p>
 <ul class="recommends">
+    {% cache 1*60, 'recommend' %}
     {% for recommend in recommends %}
         <li style="position: relative" class="recommend">
             <div class="profile-thumbnail">
@@ -23,4 +24,5 @@
             </div>
         </li>
     {% endfor %}
+    {% endcache %}
 </ul>

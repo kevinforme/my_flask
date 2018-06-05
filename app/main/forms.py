@@ -43,10 +43,9 @@ class PostForm(FlaskForm):
     body = PageDownField('写下你想说的话', validators=[DataRequired(), Length(min=20)])
     submit = SubmitField('提交')
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self,  *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.kind.choices = [(kind.name, kind.name) for kind in PostKind.query.order_by(PostKind.id).all()]
-        self.user = user
 
 
 class CommentForm(FlaskForm):

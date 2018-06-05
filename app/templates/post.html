@@ -10,8 +10,8 @@
             <h1>{{ post.title }}</h1>
         </div>
         <div class="profile-thumbnail" style="margin-bottom: 50px">
-            <a href="{{ url_for('.user',username=post.author.username) }}">
-                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}"
+            <a class="my-avatar" href="{{ url_for('.user',username=post.author.username) }}">
+                <img class="img-rounded profile-thumbnail detail-avatar" src="{{ post.author.gravatar(size=40) }}"
                      alt="post">
             </a>
             <div class="post-author">

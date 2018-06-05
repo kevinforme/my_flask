@@ -1,0 +1,4 @@
+亲爱的{{ user.username }},你好!
+您的文章{{ post.title }}有新评论了！
+点击以下连接查看详情
+{{ url_for('.post',id=post.id,_external=True) }}

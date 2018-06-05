@@ -9,6 +9,7 @@ import flasky
 from app import db
 from app.email import send_email
 from app.models import User, Avatar
+from config import basedir
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, \
     ChangeEmailForm
 from . import auth
@@ -178,13 +179,24 @@ def change_email(token):
 @auth.route('change_avatar', methods=['POST'])
 @login_required
 def change_avatar():
-    if request.method == 'POST' and 'file' in request.files:
+    if request.method == 'POST' and 'photo' in request.files:
         size = (100, 100)
-        file = request.files['file']
-        im = Image.open(file)
+        photo = request.files['photo']
+        im = Image.open(photo)
         im.thumbnail(size)
-        filename = secure_filename(file.filename)
-        avatar = Avatar(filename=filename, user_id=current_user.id)
-        db.session.add(avatar)
+        filename = secure_filename(photo.filename)
+        a = Avatar.query.filter_by(user_id=current_user.id).first()
+        print(a)
+        if a is None:
+            avatar = Avatar(filename=filename, user_id=current_user.id)
+            db.session.add(avatar)
+        else:
+            if os.path.exists(basedir+'/app/static/uploads/'+a.filename):
+
+                os.remove(basedir+'/app/static/uploads/'+a.filename)
+            else:
+                print('no such file:%s' % a.filename)
+            a.filename = filename
+            db.session.add(a)
         im.save(os.path.join(flasky.app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('main.index'))
+    return redirect(url_for('main.index'))

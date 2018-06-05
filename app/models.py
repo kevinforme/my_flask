@@ -5,6 +5,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+from app import cache
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
@@ -172,9 +173,9 @@ class User(UserMixin, db.Model):
         db.session.add(self)
 
     # 根据邮箱生成头像查询字符串
+    @cache.memoize(10)
     def gravatar(self, size=50, default='monsterid', rating='g'):
         if self.avatar.first() is not None:
-            print(self.avatar)
             return url_for('static', filename='uploads/'+self.avatar.first().filename)
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'

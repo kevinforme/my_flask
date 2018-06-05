@@ -3,6 +3,7 @@
 
 {% block page_content %}
     <div class="col-md-8">
+        {% cache 5*60 %}
         <div class="recommend-collection">
             <a class="collection" target="_blank"
                href="{{ url_for('main.posts',kind='社会热点') }}">
@@ -51,6 +52,7 @@
                 <div class="name">其他</div>
             </a>
         </div>
+        {% endcache %}
         <hr>
         <div>
             {% include '_posts.html' %}

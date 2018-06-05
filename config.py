@@ -13,8 +13,8 @@ class Config:
     MAIL_PORT = 25
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or '17730804096@189.cn'
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or '6827427955'
-    MAIL_SUBJECT_PROFIX = '[Flasky]'
-    MAIL_SENDER = 'Flasky Admin <17730804096@189.cn>'
+    MAIL_SUBJECT_PROFIX = '[keke]'
+    MAIL_SENDER = 'keke Admin <17730804096@189.cn>'
 
     FLASKY_ADMIN = 'kevinforlj@163.com'
 
